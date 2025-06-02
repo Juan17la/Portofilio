@@ -1,13 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap');
 @import "tailwindcss";
 
 @theme {
-    --color-blackgreen: #090E08;
+    --color-blackgreen: #041700;
     --color-textconsole: #0DFF00;
     --color-borderfakewindow: #234022;
     --color-textconsole2: #09AF00;
+    --color-textconsole3: #af6300;
+    --color-textconsole4: #8b4f00;
+    --color-shadowfakewindow: rgba(0, 255, 17, 0.25);
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap');
 
 html{
     font-family: 'Kode Mono', monospace;
@@ -16,9 +18,162 @@ html{
 }
 
 #bg-image2 {
-    z-index: 9;
-    box-shadow: inset 2px 0px 25px 0px #090E08,
-                inset -2px 0px 25px 0px #090E08,
-                inset 0 2px 25px 0px #090E08,
-                inset 0 -2px 25px 0px #090E08;
+    z-index: 10;
+    color: rgb(4, 23, 0);
+    box-shadow: inset 2px 0px 25px 0px rgb(4, 23, 0),
+                inset -2px 0px 25px 0px rgb(4, 23, 0),
+                inset 0 2px 25px 0px rgb(4, 23, 0),
+                inset 0 -2px 25px 0px rgb(4, 23, 0);}
+
+#shadow_bg::after {
+    box-shadow: inset 0 0 50px 20px rgba(0, 0, 0, 0.8);
 }
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  50% { border-color: transparent }
+}
+
+.typed-text {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--textconsole2);
+  animation: 
+    typing 0.3s steps(50, end),
+    0.75s step-end ease-in;
+  width: 0%;
+  animation-fill-mode: forwards;
+}
+
+.typed-text-2 {
+  overflow: hidden;
+  border-right: 3px solid var(--textconsole2);
+  animation: 
+    typing 0.5s steps(50, end),
+    0.75s step-end ease-out;
+  width: 0%;
+  white-space: wrap;
+  animation-fill-mode: forwards;
+}
+
+.delay-1 {
+  animation-delay: 0s;
+}
+
+.delay-2 {
+  animation-delay: 0.6s;
+}
+
+.delay-3 {
+  animation-delay: 1.2s;
+}
+
+.delay-4 {
+  animation-delay: 1.8s;
+}
+
+.delay-5 {
+  animation-delay: 2.4s;
+}
+
+.delay-6 {
+  animation-delay: 2.4s;
+}
+
+.delay-7 {
+  animation-delay: 2.8s;
+}
+
+.delay-8 {
+  animation-delay: 3.2s;
+}
+
+.delay-9 {
+  animation-delay: 3.6s;
+}
+
+@keyframes blink {
+  50% { opacity: 0 }
+}
+
+.cursor-blink {
+font-family: monospace;
+font-size: 24px;
+line-height: 1;
+display: inline-block;
+margin-left: 0.5rem;
+transition: opacity 0.1s ease;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(1.4);
+  }
+  to {
+    transform: scale(2.2);
+  }
+}
+
+#shadow_bg {
+  animation: zoomIn 1s ease-out forwards;
+}
+
+.shadow-overlay {
+  box-shadow: inset 2rem 0px 25px 0px rgb(13, 33, 10),
+            inset -2rem 0px 25px 0px rgb(13, 33, 10),
+            inset 0 2px 55px 0px rgb(13, 33, 10),
+            inset 0 -2px 55px 0px rgb(13, 33, 10);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.video-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.2s ease-in forwards;
+}
+
+/* Matrix rain styles */
+#matrix-rain {
+  pointer-events: none;
+  filter: blur(0.5px);
+}
+
+/* Add opacity utility class */
+.opacity-15 {
+  opacity: 0.15;
+}
+
+.terminal-line {
+  font-family: 'Kode Mono', monospace;
+  color: #af6300;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  transition: opacity 0.5s ease;
+  max-width: 250px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  line-height: 1.2;
+}
+
+.terminal-line.fade-in {
+  opacity: 0.7;
+}
+
+.terminal-line.fade-out {
+  opacity: 0;
+}
+
+/* Ya no necesitamos el clip-path ya que controlamos la posición directamente */
+#terminal-text {
+  pointer-events: none;
+}
+

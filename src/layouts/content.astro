@@ -1,0 +1,57 @@
+---
+import "./src/styles/global.css";
+
+const bgWidth = 1440;
+const bgHeight = 1080;
+
+---
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="">
+
+<main class="w-screen h-screen relative overflow-hidden bg-blackgreen p-4">
+  <!-- Añade esto justo después del main -->
+  <div id="terminal-text" class="absolute inset-0 pointer-events-none z-30">
+  </div>
+
+  <img
+    src="/bg_portfollio_2.png"
+    id="shadow_bg"
+    alt="bg"
+    fetchpriority="high"
+    class="absolute z-10 object-contain origin-center"
+    style={`
+      width: ${bgWidth}px;
+      height: ${bgHeight}px;
+      left: calc(50% - ${bgWidth / 2}px);
+      top: calc(55vh - ${bgHeight / 2}px);
+    `}
+  />
+
+  <img
+    src="/laptop_bg.png"
+    id="shadow_bg"
+    alt="bg"
+    fetchpriority="high"
+    class="absolute z-10 object-contain origin-center"
+    style={`
+      width: ${bgWidth}px;
+      height: ${bgHeight}px;
+      left: calc(50% - ${bgWidth / 2}px);
+      top: calc(55vh - ${bgHeight / 2}px);
+    `}
+  />
+
+  <!-- Añadimos una capa de sombra -->
+  <div class="absolute inset-0 z-20 shadow-overlay"></div>
+
+  <div
+    class="relative flex flex-col h-full justify-center text-textconsole z-30 px-[20%] pt-[5%] pb-[10%]">
+    <slot />    
+   </div>       
+</body>
+</html>

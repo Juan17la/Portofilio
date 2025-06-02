@@ -1,0 +1,130 @@
+---
+import "./src/styles/global.css";
+
+const arrowRight = '->'
+const arrowLeft= '<-'
+
+---
+
+<div
+  class="w-full flex text-[24px] font-bold border-b-4  border-textconsole2 border-dashed typed-text delay-2 py-8"
+>
+  >jud@localhost:~$ ./Skills_&_qualifications.sh
+</div>
+
+<div
+  class="w-full h-fit flex aling-center text-[64px] font-bold border-b-4 max-w-fit border-textconsole2 border-dashed typed-text delay-2 py-4"
+>
+  Skills & Qualifications
+</div>
+
+<div
+  id="carrusel-controller"
+  class="w-full h-fit flex aling-center justify-between text-[24px] font-bold border-b-4 text-textconsole3 border-textconsole2 border-dashed typed-text delay-2 py-4"
+>
+  <button id="prev" class="hover:text-textconsole4 cursor-pointer">{arrowLeft}Prev</button>
+  <h3 class="text-textconsole">Programming Languages</h3>
+  <button id="next" class="hover:text-textconsole4 cursor-pointer">Next{arrowRight}</button>
+</div>
+
+<div class="flex flex-col w-full h-fit text-[24px] font-bold overflow-hidden">
+  <div id="carrusel-container" class="w-full h-[300px] flex items-center justify-center">
+    <div id="code_techs" class="flex flex-wrap items-center justify-evenly w-full h-full">
+      <div class="flex flex-col items-center justify-center text-center gap-4 h-full">
+        <p class="typed-text-2 delay-3">Python</p>
+        <img
+          class="logo-techs h-2/3 w-auto p-4 object-contain border-4 border-textconsole2 border-dashed opacity-0"
+          src="/python.svg"
+          alt="Python Logo"
+        />
+      </div>
+      <div class="flex flex-col items-center justify-center text-center gap-4 h-full">
+        <p class="typed-text-2 delay-3">JavaScript</p>
+        <img
+          id="logo-techs"
+          class="logo-techs h-2/3 w-auto p-4 object-contain border-4 border-textconsole2 border-dashed opacity-0"
+          src="/javascript.svg"
+          alt="Javascript Logo"
+        />
+      </div>
+      <div class="flex flex-col items-center justify-center text-center gap-4 h-full">
+        <p class="typed-text-2 delay-3">C#</p>
+        <img
+          id="logo-techs"
+          class="logo-techs h-2/3 w-auto p-4 object-contain border-4 border-textconsole2 border-dashed opacity-0"
+          src="/csharp.svg"
+          alt="C# Logo"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="w-full text-[24px] font-bold py-4">
+  <ul class="space-y-2">
+    <li id="link-nav" class="typed-text delay-4 flex items-center gap-2">
+      <span class="arrow-container w-4"></span>
+      <a href="/">Menu</a>
+      <span class="cursor-container"></span>
+    </li>
+    <li id="link-nav" class="typed-text delay-4 flex items-center gap-2">
+      <span class="arrow-container w-4"></span>
+      <a href="/about-me">Get Back</a>
+      <span class="cursor-container"></span>
+    </li>
+    <li id="link-nav" class="typed-text delay-4 flex items-center gap-2">
+      <span class="arrow-container w-4"></span>
+      <a href="/skills-qualifications">Next</a>
+      <span class="cursor-container"></span>
+    </li>
+  </ul>
+</nav>
+
+<script>
+  const navLinks = document.querySelectorAll("#link-nav");
+
+  // Set initial state (first link active)
+  const initialLink = navLinks[0];
+  initialLink.querySelector(".arrow-container").innerHTML = ">";
+  initialLink.querySelector(".cursor-container").innerHTML =
+    '<span class="cursor-blink text-textconsole2">_</span>';
+
+  navLinks.forEach((link) => {
+    link.addEventListener("mouseenter", () => {
+      // Remove arrow and cursor from all links
+      navLinks.forEach((item) => {
+        item.querySelector(".arrow-container").innerHTML = "";
+        item.querySelector(".cursor-container").innerHTML = "";
+      });
+
+      // Add arrow and cursor to current link
+      link.querySelector(".arrow-container").innerHTML = ">";
+      link.querySelector(".cursor-container").innerHTML =
+        '<span class="cursor-blink text-textconsole2">_</span>';
+    });
+  });
+
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .cursor-blink {
+      animation: blink 0.2s step-end infinite;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Añadir el código para el video
+  window.addEventListener("load", () => {
+    const imageDelay = 800;
+
+    setTimeout(() => {
+      const images = document.querySelectorAll(".logo-techs");
+      images.forEach((image) => {
+        image.classList.add("video-fade-in");
+      });
+    }, imageDelay);
+  });
+</script>

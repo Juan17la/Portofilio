@@ -1,0 +1,167 @@
+---
+import "./src/styles/global.css";
+---
+
+<div
+  class="w-full flex text-[24px] font-bold py-4 border-b-4 border-textconsole2 border-dashed typed-text delay-2"
+>
+  >jud@localhost:~$ ./portfolio.sh
+</div>
+
+<div
+  class="w-full flex text-[64px] font-bold py-6 border-b-4 border-textconsole2 border-dashed typed-text delay-2"
+>
+  About Me
+</div>
+
+<div class="flex flex-col w-full h-fit text-[24px] font-bold pt-6 pb-2 overflow-hidden">
+    <p class="pb-6 max-w-full typed-text-2 delay-3 ">
+      >Hi, I'm Juan (jud) — an 18-year-old Software Engineering student who started his journey in web development.
+    </p>
+    <div class="flex items-center gap-4">
+      <p class="pb-6 max-w-[65%] h-fit typed-text-2 delay-3 ">
+        Proud Arch Linux user btw, terminal enjoyer, and passionate about clean code, open-source, 
+and making things that actually work.
+      </p>
+      <video 
+        id="linux-video"
+        class="border-4 border-textconsole2 border-dashed opacity-0 m-auto" 
+        src="./linux.webm" 
+        autoplay 
+        loop
+      ></video>
+    </div>
+</div>
+
+<nav class="w-full text-[24px] font-bold p-6 pt-0">
+  <ul class="space-y-2">
+    <li id="link-nav" class="typed-text delay-4 flex items-center gap-2">
+      <span class="arrow-container w-4"></span>
+      <a href="/">Get Back</a>
+      <span class="cursor-container"></span>
+    </li>
+    <li id="link-nav" class="typed-text delay-4 flex items-center gap-2">
+      <span class="arrow-container w-4"></span>
+      <a href="/skills-qualifications">Next</a>
+      <span class="cursor-container"></span>
+    </li>
+  </ul>
+</nav>
+
+<script>
+  const navLinks = document.querySelectorAll("#link-nav");
+
+  // Set initial state (first link active)
+  const initialLink = navLinks[0];
+  initialLink.querySelector(".arrow-container").innerHTML = ">";
+  initialLink.querySelector(".cursor-container").innerHTML =
+    '<span class="cursor-blink text-textconsole2">_</span>';
+
+  navLinks.forEach((link) => {
+    link.addEventListener("mouseenter", () => {
+      // Remove arrow and cursor from all links
+      navLinks.forEach((item) => {
+        item.querySelector(".arrow-container").innerHTML = "";
+        item.querySelector(".cursor-container").innerHTML = "";
+      });
+
+      // Add arrow and cursor to current link
+      link.querySelector(".arrow-container").innerHTML = ">";
+      link.querySelector(".cursor-container").innerHTML =
+        '<span class="cursor-blink text-textconsole2">_</span>';
+    });
+  });
+
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .cursor-blink {
+      animation: blink 0.2s step-end infinite;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Añadir el código para el video
+  window.addEventListener('load', () => {
+    // Calculamos el tiempo total de las animaciones previas
+    // delay-3 (1.2s) + duración de la animación typing (0.5s)
+    const videoDelay = 1700; // 1.2s + 0.5s = 1.7s
+    
+    setTimeout(() => {
+      const video = document.getElementById('linux-video');
+      video.classList.add('video-fade-in');
+    }, videoDelay);
+  });
+
+
+  // animacion para el about
+
+  const phrases = [
+    "I like Minecraft, but java... ",
+    "I listen to emo scene and I'm not depressed.",
+    "Code is how I exist.",
+    "Ricing Linux is my toxic passion.",
+    "I hate animations. They look fire tho.",
+    "Productive outside, airhead inside.",
+    "Just boredom.",
+    "Deep code, deeper crisis.",
+    "Socializing? Nah, missing that package.",
+    "Three hours talking to myself... or my besty ChatGPT.",
+    "I build stuff and forget lunch.",
+    "Frontend or Backend? Depends on mood.",
+    "Give me the job... I'm hungry!",
+    "Sometimes I just scream in code."
+  ];
+
+  function createTextElement(text: string) {
+    const el = document.createElement('div');
+    el.className = 'terminal-line absolute text-sm text-textconsole opacity-0';
+    
+    // Decidir aleatoriamente en qué borde aparecerá
+    const position = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+    
+    switch(position) {
+      case 0: // Top
+        el.style.top = '2%';
+        el.style.left = `${Math.random() * 100}%`;
+        break;
+      case 1: // Right
+        el.style.right = '2%';
+        el.style.top = `${Math.random() * 100}%`;
+        break;
+      case 2: // Bottom
+        el.style.bottom = '5%';
+        el.style.left = `${Math.random() * 100}%`;
+        break;
+      case 3: // Left
+        el.style.left = '5%';
+        el.style.top = `${Math.random() * 100}%`;
+        break;
+    }
+    
+    el.textContent = text;
+    return el;
+  }
+
+  function showRandomText() {
+    
+    const container = document.getElementById('terminal-text');
+    const text = createTextElement(phrases[Math.floor(Math.random() * phrases.length)]);
+    container?.appendChild(text);
+
+    // Animación de fade in
+    setTimeout(() => text.classList.add('fade-in'), 300);
+
+    // Eliminar después de un tiempo
+    setTimeout(() => {
+      text.classList.add('fade-out');
+      setTimeout(() => text.remove(), 2000);
+    }, 3000);
+  }
+
+  // Mostrar texto cada cierto tiempo
+  setInterval(showRandomText, 4000);
+</script>

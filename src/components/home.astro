@@ -1,82 +1,87 @@
 ---
 import "./src/styles/global.css";
-
-const bgWidth = 1440;
-const bgHeight = 1024;
 ---
 
-<main class="w-screen h-screen relative overflow-hidden bg-blackgreen">
-  <!-- Fondo centrado -->
-  <img
-    src="/public/assets/bg_portfolio.png"
-    alt="bg"
-    fetchpriority="high"
-    class="absolute z-0"
-    style={`
-      width: ${bgWidth}px;
-      height: ${bgHeight}px;
-      margin-left: calc(50% - ${bgWidth/2}px);
-      margin-top: calc(50vh - ${bgHeight/2}px);
-      object-fit: contain;
-    `}
-  />
-  <!-- Imagen me_bg -->
-  <img
-    src="/public/assets/me_bg.png"
-    alt="me"
-    fetchpriority="high"
-    id="bg-image2"
-    class="absolute z-10"
-    style={`
-      width: ${bgWidth}px;
-      height: ${bgHeight}px;
-      margin-left: calc(50% - ${bgWidth/2}px);
-      margin-top: calc(50vh - ${bgHeight/2}px);
-      object-fit: contain;
-    `}
-  />
-  <!-- Fake window -->
-  <div
-    id="fake-window"
-    class="absolute z-5 border-8 border-textconsole2 rounded-lg shadow-lg shadow-textconsole2"
-    style={`
-      width: ${bgWidth - 120}px;
-      height: ${bgHeight - 120}px;
-      margin-left: calc(51% - ${(bgWidth - 100)/2}px);
-      margin-top: calc(50vh - ${(bgHeight - 100)/2}px);
-      background-color: rgba(0, 0, 0, 0.5);
-    `}
+<div
+  class="w-full flex text-[24px] font-bold pb-6 border-b-4 border-textconsole border-dashed typed-text delay-1"
+>
+  >jud@localhost:~$ ./portfolio.sh
+</div>
+
+<div class="w-full text-left">
+  <h1
+    class="w-full text-[64px] font-bold py-6 text-textconsole2 typed-text delay-2"
   >
-    <div
-      id="content"
-      class="relative flex flex-col items-center justify-center h-full text-textconsole z-10 px-8"
-    >
-      <div
-        id="console-command"
-        class="w-full text-2xl font-bold pb-6 border-b-4 border-textconsole2 border-dashed"
-      >
-      jud@localhost:~$ ./portfolio.sh
-    </div>
-    <div id="title-page" class="w-full text-center">
-        <div id="name" class="w-full text-4xl font-bold py-6 text-textconsole2">
-          Juan Diego <br /> Lopez Arias
-        </div>
-        <div
-        id="subtitle"
-          class="text-xl font-bold pb-6 border-b-4 border-textconsole2 border-dashed"
-        >
-        Full Stack Developer
-    </div>
-      </div>
-      <div id="menu" class="w-full text-2xl font-bold pl-4 py-6">
-          <ul>
-              <li><a href="/about-me">About_Me</a></li>
-          <li>
-            <a href="/skills-qualifications">Skills_&_Qualifications</a>
-        </li>
-        <li><a href="/projects">Projects</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-    </div>
-  </div>
-</main>
+    Juan Diego
+  </h1>
+  <h1 class="text-[64px] font-bold py-6 text-textconsole2 typed-text delay-3">
+    López Arias
+  </h1>
+  <h2
+    class="text-[20px] font-bold pb-6 border-b-4 border-textconsole border-dashed typed-text delay-4"
+  >
+    Full Stack Developer
+  </h2>
+</div>
+
+<nav class="w-full text-[24px] font-bold pl-4 py-6">
+  <ul class="space-y-2">
+    <li id="link-nav" class="typed-text delay-6 flex items-center gap-2">
+      <span class="arrow-container w-4"></span>
+      <a href="/about-me">About_Me</a>
+      <span class="cursor-container"></span>
+    </li>
+    <li id="link-nav" class="typed-text delay-7 flex items-center gap-2">
+      <span class="arrow-container w-4"></span>
+      <a href="/skills-qualifications">Skills_&_Qualifications</a>
+      <span class="cursor-container"></span>
+    </li>
+    <li id="link-nav" class="typed-text delay-8 flex items-center gap-2">
+      <span class="arrow-container w-4"></span>
+      <a href="/projects">Projects</a>
+      <span class="cursor-container"></span>
+    </li>
+    <li id="link-nav" class="typed-text delay-9 flex items-center gap-2">
+      <span class="arrow-container w-4"></span>
+      <a href="/contact">Contact</a>
+      <span class="cursor-container"></span>
+    </li>
+  </ul>
+</nav>
+
+<script>
+  const navLinks = document.querySelectorAll("#link-nav");
+
+  // Set initial state (first link active)
+  const initialLink = navLinks[0];
+  initialLink.querySelector(".arrow-container").innerHTML = ">";
+  initialLink.querySelector(".cursor-container").innerHTML =
+    '<span class="cursor-blink text-textconsole2">_</span>';
+
+  navLinks.forEach((link) => {
+    link.addEventListener("mouseenter", () => {
+      // Remove arrow and cursor from all links
+      navLinks.forEach((item) => {
+        item.querySelector(".arrow-container").innerHTML = "";
+        item.querySelector(".cursor-container").innerHTML = "";
+      });
+
+      // Add arrow and cursor to current link
+      link.querySelector(".arrow-container").innerHTML = ">";
+      link.querySelector(".cursor-container").innerHTML =
+        '<span class="cursor-blink text-textconsole2">_</span>';
+    });
+  });
+
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .cursor-blink {
+      animation: blink 1s step-end infinite;
+    }
+  `;
+  document.head.appendChild(style);
+</script>

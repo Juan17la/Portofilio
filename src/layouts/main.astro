@@ -1,4 +1,8 @@
 ---
+import "./src/styles/global.css";
+
+const bgWidth = 1440;
+const bgHeight = 1080;
 ---
 
 <html lang="en">
@@ -7,6 +11,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+
+<main class="w-screen h-screen relative overflow-hidden bg-blackgreen">
+  <!-- Add the rain canvas before other elements -->
+  <canvas id="matrix-rain" class="absolute top-0 left-0 w-full h-full z-2 opacity-15"></canvas>
+
+  <img
+    src="/bg_portfolio.png"
+    alt="Background"
+    fetchpriority="high"
+    class="absolute z-0 object-contain"
+    style={`
+      width: ${bgWidth}px;
+      height: ${bgHeight}px;
+      left: calc(50% - ${bgWidth / 2}px);
+      top: calc(50vh - ${bgHeight / 2}px);
+    `}
+  />
+  <img
+    src="/me_bg.png"
+    id="bg-image2"
+    alt="Juan Diego"
+    fetchpriority="high"
+    class="absolute z-10 object-contain"
+    style={`
+      width: ${bgWidth}px;
+      height: ${bgHeight}px;
+      left: calc(50% - ${bgWidth / 2}px);
+      top: calc(50vh - ${bgHeight / 2}px);
+    `}
+  />
+  <div
+    class="absolute z-5 border-8 border-borderfakewindow rounded-lg shadow-[0_0_22px_0_rgba(0,255,17,0.5)]"
+    style={`
+      width: ${bgWidth - 100}px;
+      height: ${bgHeight - 100}px;
+      left: calc(50% - ${(bgWidth - 100) / 2}px);
+      top: calc(50vh - ${(bgHeight - 100) / 2}px);`}
+  >
+  </div>
+
+  <div
+    class="relative flex flex-col justify-center items-center h-full text-textconsole z-30 pr-10 py-10 sm:pl-[45%] xl:pl-[44%] 2xl:pl-[38%]"
+    style={`
+      width: ${bgWidth - 100}px;
+      height: ${bgHeight - 100}px;
+      left: calc(50% - ${(bgWidth - 100) / 2}px);
+      top: calc(50vh - ${(bgHeight - 100) / 2}px);`}>
     <slot />    
+   </div>       
 </body>
 </html>
+
+<script>
+  const canvas = document.getElementById('matrix-rain');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // const characters = '█';
+  const characters = '|';
+  const fontSize = 24;
+  const columns = canvas.width / fontSize;
+  const drops = [];
+
+  // Initialize drops with random starting positions
+  for(let i = 0; i < columns; i++) {
+    drops[i] = Math.floor(Math.random() * canvas.height/fontSize); // Random starting position
+  }
+
+  function draw() {
+    ctx.fillStyle = 'rgba(4, 23, 0, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = '#0DFF00';
+    ctx.font = `${fontSize}px 'Kode Mono'`;
+
+    for(let i = 0; i < drops.length; i++) {
+        const text = characters[Math.floor(Math.random() * characters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if(drops[i] * fontSize > canvas.height && Math.random() > 0.915) {
+            drops[i] = 0;
+        }
+
+        drops[i]++;
+    }
+  }
+
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  // Animation loop
+  setInterval(draw, 25);
+</script>
